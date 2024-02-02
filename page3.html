@@ -1,0 +1,77 @@
+<!-- page3.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for character set and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 3</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="styles3.css">
+</head>
+
+<body>
+    <!-- Container for the page content -->
+    <div id="container">
+        <!-- Mulah Logo -->
+        <img src="mulah.png" alt="Mulah Logo">
+
+        <!-- Registration success heading -->
+        <div id="registration">Success!</div>
+
+        <!-- Success message -->
+        <div id="fillUp">You have been successfully registered.</div>
+
+        <!-- Card to display user data -->
+        <div class="card" id="displayedData">
+            <!-- User name section -->
+            <div class="name-section">
+                ${name}
+            </div>
+            <!-- Phone number display -->
+            <div class="phoneNumber"><strong>Phone Number:</strong> ${phoneNumber}</div>
+            <!-- Email address display -->
+            <div class="email"><strong>Email:</strong> ${email}</div>
+            <!-- Birthday display -->
+            <div class="birthday"><strong>Birthday:</strong> ${birthday}</div>
+        </div>
+
+        <!-- Button to visit Mulah Rewards -->
+        <button onclick="redirectToMulahRewards()">Visit Mulah Rewards</button>
+
+        <hr>
+
+    </div>
+
+    <!-- Powered by MulahRewards.com text with a hyperlink -->
+    <div id="poweredByText">Powered by <a href="https://mulahrewards.com/">MulahRewards.com</a></div>
+
+    <!-- JavaScript script to extract query parameters and display data -->
+    <script>
+        // Extract query parameters from the URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const name = urlParams.get('name');
+        const birthday = urlParams.get('birthday');
+        const email = urlParams.get('email');
+        const phoneNumber = urlParams.get('phoneNumber');
+
+        // Display the data
+        const displayedData = document.getElementById('displayedData');
+        displayedData.innerHTML = `
+            <div class="name-section">
+                ${name}
+            </div>
+            <div class="phoneNumber"><strong>Phone Number:</strong> ${phoneNumber}</div>
+            <div class="email"><strong>Email:</strong> ${email}</div>
+            <div class="birthday"><strong>Birthday:</strong> ${birthday}</div>`;
+
+        // Function to redirect to Mulah Rewards
+        function redirectToMulahRewards() {
+            window.location.href = 'https://www.mulahrewards.com/';
+        }
+    </script>
+</body>
+
+</html>

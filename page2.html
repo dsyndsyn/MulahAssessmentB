@@ -1,0 +1,108 @@
+<!-- page2.html -->
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- Meta tags for character set and viewport settings -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Page 2</title>
+    <!-- Link to external stylesheet -->
+    <link rel="stylesheet" href="styles2.css">
+</head>
+
+<body>
+    <!-- Container for the page content -->
+    <div id="container">
+        <!-- Mulah Logo -->
+        <img src="mulah.png" alt="Mulah Logo">
+
+        <!-- Registration heading -->
+        <div id="registration">Registration</div>
+
+        <!-- Instruction to fill up details -->
+        <div id="fillUp">Please fill up your details.</div>
+
+        <!-- Form for user details -->
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter name" required>
+        <div id="pleaseInsert">*Please insert a name.</div>
+
+        <label for="birthday">Birthday:</label>
+        <div class="birthday-inputs">
+            <!-- Input fields for day, month, and year of birth -->
+            <input type="text" id="day" placeholder="DD" maxlength="2" required class="left-aligned">
+            <input type="text" id="month" placeholder="MM" maxlength="2" required class="center-aligned">
+            <input type="text" id="year" placeholder="YYYY" maxlength="4" required class="right-aligned">
+        </div>
+        <div id="pleaseInsert">*Please insert your birthday.</div>
+
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="Email Address" required>
+        <div id="pleaseInsert">*Please insert a valid email address.</div>
+
+        <!-- Checkbox to indicate no email address -->
+        <label class="checkbox-label" for="myCheckbox">
+            <input type="checkbox" id="myCheckbox" name="myCheckbox" onchange="toggleEmailField()"> 
+            <span class="no-email-text">No email address</span>
+        </label>
+
+        <!-- Button to continue to the next page -->
+        <button onclick="submitData()">Continue</button>
+
+        <hr>
+
+    </div>
+
+    <!-- Powered by MulahRewards.com text with a hyperlink -->
+    <div id="poweredByText">Powered by <a href="https://mulahrewards.com/">MulahRewards.com</a></div>
+
+    <!-- JavaScript script for toggling email field and submitting data -->
+    <script>
+        // Function to toggle email field based on checkbox state
+        function toggleEmailField() {
+            const emailInput = document.getElementById('email');
+            const checkbox = document.getElementById('myCheckbox');
+    
+            // Disable email input if the checkbox is checked
+            emailInput.disabled = checkbox.checked;
+    
+            // Clear the email input value if the checkbox is checked
+            if (checkbox.checked) {
+                emailInput.value = "";
+                emailInput.style.backgroundColor = "#d4d4d4"; // Set background color to gray
+            } else {
+                emailInput.style.backgroundColor = ""; // Reset background color
+            }
+        }
+    
+        // Function to submit user data and redirect to the next page
+        function submitData() {
+            const nameInput = document.getElementById('name');
+            const dayInput = document.getElementById('day');
+            const monthInput = document.getElementById('month');
+            const yearInput = document.getElementById('year');
+            const emailInput = document.getElementById('email');
+            const checkbox = document.getElementById('myCheckbox');
+    
+            // Check if all required fields are filled
+            if (nameInput.value === "" || dayInput.value === "" || monthInput.value === "" || yearInput.value === "" || (emailInput.value === "" && !checkbox.checked)) {
+                alert("Please fill in all required fields.");
+                return;
+            }
+    
+            // Get phone number from query parameter
+            const urlParams = new URLSearchParams(window.location.search);
+            const phoneNumber = urlParams.get('phoneNumber');
+    
+            // Redirect to Page 3 with query parameters
+            const birthdayValue = `${dayInput.value}/${monthInput.value}/${yearInput.value}`;
+            const emailValue = checkbox.checked ? "Not available" : emailInput.value;
+            const queryParams = `?name=${encodeURIComponent(nameInput.value)}&birthday=${encodeURIComponent(birthdayValue)}&email=${encodeURIComponent(emailValue)}&phoneNumber=${encodeURIComponent(phoneNumber)}`;
+            window.location.href = `page3.html${queryParams}`;
+        }
+    </script>
+</body>
+
+</html>
